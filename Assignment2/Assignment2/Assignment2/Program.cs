@@ -10,21 +10,22 @@ namespace Assignment2
             Console.WriteLine("Enter 'exit' to end program.");
             bool runFlag = true;
             while (runFlag) {
-
                 Console.Write("Enter math operation to solve (e.g. 2*5): ");
-                string line = Console.ReadLine();
+                String line = Console.ReadLine();
                 runFlag = line.ToLower().Equals("exit") ? false : true;
-
                 if (runFlag)
-                {
-                    //parseLine
-                    //parse args
-                    //perform operation
-                    //print
-                }
+                    evaluateLine(line);
+
+                    
             }
+            Console.WriteLine("Program complete.");
         }
 
+        static bool runCheck(out string line)
+        {
+            line = Console.ReadLine();
+            return line.ToLower().Equals("exit") ? false : true;
+        }
 
         static MatchCollection parseOneLine(string line)
         {
