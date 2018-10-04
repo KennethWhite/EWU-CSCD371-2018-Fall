@@ -15,15 +15,17 @@ namespace StringMath
                 Console.Write("Enter math operation to solve (e.g. 2*5): ");
 
                 String line = Console.ReadLine();
-                runFlag = line.ToLower().Equals("exit") ? false : true;
-
-                if (runFlag && !(line.Length == 0 || line.Length < 3)) {
-                    MatchCollection operands = parseOneLine(line);
-                    char op = findOperator(line, operands);
-                    double result = evaluateExpression(operands, op);
-                    printResult(result);
+                if (!string.IsNullOrEmpty(line))
+                {
+                    runFlag = line.ToLower().Equals("exit") ? false : true;
+                    if (runFlag && !(line.Length == 0 || line.Length < 3))
+                    {
+                        MatchCollection operands = parseOneLine(line);
+                        char op = findOperator(line, operands);
+                        double result = evaluateExpression(operands, op);
+                        printFormattedResult(result);
+                    }
                 }
-
             }
             Console.WriteLine("Program complete.");
         }
@@ -31,7 +33,8 @@ namespace StringMath
         private static MatchCollection parseOneLine(string line)
         {
             line = System.Text.RegularExpressions.Regex.Replace(line, " ", "");
-            Regex regex = new Regex("(-?\\d+)(.\\d+)?"); //0-1 minus signs followed by 1+ digits, optional decimal point and precision digits
+            //0-1 minus signs followed by 1+ digits, optional decimal point and precision digits
+            Regex regex = new Regex(@"(?<!\d)-?\d+(\.\d+)?"); 
             MatchCollection matches = regex.Matches(line);
 
             if (matches.Count != 2)
@@ -42,7 +45,9 @@ namespace StringMath
         private static char findOperator(string line, MatchCollection operands)
         {
             List<char> delimiters = new List<char> { '+', '-', '/', '*', '%', '^', };
-            Match lhs = (Match)operands.GetEnumerator().Current;
+            IEnumerator<Match> en = (IEnumerator < Match >) operands.GetEnumerator();
+            en.MoveNext();
+            Match lhs = en.Current;
             char c = line[lhs.Index + lhs.Length];
             if (delimiters.Contains(c))
                 return c;
@@ -63,7 +68,6 @@ namespace StringMath
                 Double.TryParse(rhsString, out rhs);
             }
             else
-            //TODO use doubles or long, dont cast or you'll lose precision with large int numbers
             {
                 long.TryParse(lhsString, out long lTemp);
                 long.TryParse(rhsString, out long rTemp);
@@ -75,13 +79,44 @@ namespace StringMath
 
         private static double evaluateOperands(double lhs, double rhs, char op)
         {
-            throw new NotImplementedException();
-           
+            switch (op)
+            {
+                case '+':
+                    return lhs + rhs;
+                case '-':
+                    return lhs - rhs;
+                case '*':
+                    return lhs * rhs;
+                case '/':
+                    return lhs / rhs;
+                case '%':
+                    return lhs % rhs;
+                case '^':
+                    try
+                    {
+                        return Math.Pow(lhs, rhs);
+                    }
+                    catch(OverflowException ex)
+                    {
+                        Console.WriteLine($"Exception: answer too large! {lhs}{op}{rhs}");
+                        return 0;
+                    }
+                default:
+                    throw new ArgumentException("Unsupported operator");
+            }
+       
         }
 
-        private static void printResult(double result)
+        private static void printFormattedResult(double result)
         {
-            throw new NotImplementedException();
+            double precision = .00001;
+            if (Math.Abs(result - Math.Truncate(result)) < precision)
+            {
+                Console.WriteLine($"{result:0F}");
+            }
+            else{
+                Console.WriteLine($"{result:4F}");
+            }
         }
 
     }
