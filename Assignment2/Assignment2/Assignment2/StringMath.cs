@@ -10,32 +10,25 @@ namespace StringMath
         public static void Main(string[] args)
         {
             String line;
+            bool argsFlag = false;
             if (args.Length == 1)
-            {
-                line = args[0];
-            }
+                argsFlag = true;
+          
 
             Console.WriteLine("Enter 'exit' to end program.");
             bool runFlag = true;
 
             while (runFlag) {
                 Console.Write("Enter binomial math operation to solve. e.g. (-2.5%5.1): ");
-                line = Console.ReadLine();
+                line = (argsFlag)? args[0] : Console.ReadLine();
+                if (argsFlag)
+                    argsFlag = false;
                 if (!string.IsNullOrEmpty(line))
                 {
-                    try
-                    {
-                        runFlag = line.ToLower().Equals("exit") ? false : true;
-                        if (runFlag && !(line.Length == 0 || line.Length < 3))
-                        {
-                            MatchCollection operands = ParseOneLine(line);
-                            char op = FindOperator(line, operands);
-                            double result = EvaluateExpression(operands, op);
-                            PrintFormattedResult(operands,op ,result);
-                        }
+                    try{
+                        runFlag = ParseLine(line);
                     }
-                    catch(Exception ex)
-                    {
+                    catch(Exception ex){
                         Console.WriteLine($"Failed to evalute expression: {line}");
                         Console.WriteLine($"Reason: {ex.Message}");
                     }
@@ -44,7 +37,20 @@ namespace StringMath
             Console.WriteLine("Program complete.");
         }
 
-        private static MatchCollection ParseOneLine(string line)
+        private static bool ParseLine(string line)
+        {
+            bool runFlag = line.ToLower().Equals("exit") ? false : true;
+            if (runFlag && !(line.Length == 0 || line.Length < 3))
+            {
+                MatchCollection operands = ParseLineParameters(line);
+                char op = FindOperator(line, operands);
+                double result = EvaluateExpression(operands, op);
+                PrintFormattedResult(operands, op, result);
+            }
+            return runFlag;
+        }
+
+        private static MatchCollection ParseLineParameters(string line)
         {
             line = System.Text.RegularExpressions.Regex.Replace(line, " ", "");
             //0-1 minus signs followed by 1+ digits, optional decimal point and precision digits
@@ -120,6 +126,8 @@ namespace StringMath
         {
             Console.WriteLine($"{operands[0]}{op}{operands[1]} = {String.Format("{0:0.####}", result)}");
         }
+
+        
 
     }
 }
