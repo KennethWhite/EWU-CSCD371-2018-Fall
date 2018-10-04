@@ -9,32 +9,46 @@ namespace StringMath
     {
         public static void Main(string[] args)
         {
+            String line;
+            if (args.Length == 1)
+            {
+                line = args[0];
+            }
+
             Console.WriteLine("Enter 'exit' to end program.");
             bool runFlag = true;
-            while (runFlag) {
-                Console.Write("Enter math operation to solve (e.g. 2*5): ");
 
-                String line = Console.ReadLine();
+            while (runFlag) {
+                Console.Write("Enter binomial math operation to solve. e.g. (-2.5%5.1): ");
+                line = Console.ReadLine();
                 if (!string.IsNullOrEmpty(line))
                 {
-                    runFlag = line.ToLower().Equals("exit") ? false : true;
-                    if (runFlag && !(line.Length == 0 || line.Length < 3))
+                    try
                     {
-                        MatchCollection operands = parseOneLine(line);
-                        char op = findOperator(line, operands);
-                        double result = evaluateExpression(operands, op);
-                        printFormattedResult(result);
+                        runFlag = line.ToLower().Equals("exit") ? false : true;
+                        if (runFlag && !(line.Length == 0 || line.Length < 3))
+                        {
+                            MatchCollection operands = ParseOneLine(line);
+                            char op = FindOperator(line, operands);
+                            double result = EvaluateExpression(operands, op);
+                            PrintFormattedResult(operands,op ,result);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine($"Failed to evalute expression: {line}");
+                        Console.WriteLine($"Reason: {ex.Message}");
                     }
                 }
             }
             Console.WriteLine("Program complete.");
         }
 
-        private static MatchCollection parseOneLine(string line)
+        private static MatchCollection ParseOneLine(string line)
         {
             line = System.Text.RegularExpressions.Regex.Replace(line, " ", "");
             //0-1 minus signs followed by 1+ digits, optional decimal point and precision digits
-            Regex regex = new Regex(@"(?<!\d)-?\d+(\.\d+)?"); 
+            Regex regex = new Regex(@"(?<!\d)-?(\d+)?(\.\d+)?"); 
             MatchCollection matches = regex.Matches(line);
 
             if (matches.Count != 2)
@@ -42,7 +56,7 @@ namespace StringMath
             return matches;
         }
 
-        private static char findOperator(string line, MatchCollection operands)
+        private static char FindOperator(string line, MatchCollection operands)
         {
             List<char> delimiters = new List<char> { '+', '-', '/', '*', '%', '^', };
             IEnumerator<Match> en = (IEnumerator < Match >) operands.GetEnumerator();
@@ -51,11 +65,11 @@ namespace StringMath
             char c = line[lhs.Index + lhs.Length];
             if (delimiters.Contains(c))
                 return c;
-            throw new ArgumentException($"Incorrect format cannot find operator: {line}");
+            throw new ArgumentException($"Incorrect format: cannot find operator: {line}");
         }
 
 
-        private static double evaluateExpression(MatchCollection operands, char op)
+        private static double EvaluateExpression(MatchCollection operands, char op)
         {
             string lhsString = operands[0].Value;
             string rhsString = operands[1].Value;
@@ -74,10 +88,11 @@ namespace StringMath
                 lhs = Convert.ToDouble(lTemp);
                 rhs = Convert.ToDouble(rTemp);
             }
-            return evaluateOperands(lhs, rhs, op);
+            return EvaluateOperands(lhs, rhs, op);
         }
 
-        private static double evaluateOperands(double lhs, double rhs, char op)
+        //Will suffer loss of precision with large (> 16 digits) integer numbers
+        private static double EvaluateOperands(double lhs, double rhs, char op)
         {
             switch (op)
             {
@@ -88,35 +103,22 @@ namespace StringMath
                 case '*':
                     return lhs * rhs;
                 case '/':
+                    if (Math.Abs(rhs) < Double.Epsilon)
+                        throw new DivideByZeroException();
                     return lhs / rhs;
                 case '%':
                     return lhs % rhs;
                 case '^':
-                    try
-                    {
                         return Math.Pow(lhs, rhs);
-                    }
-                    catch(OverflowException ex)
-                    {
-                        Console.WriteLine($"Exception: answer too large! {lhs}{op}{rhs}");
-                        return 0;
-                    }
                 default:
                     throw new ArgumentException("Unsupported operator");
             }
        
         }
 
-        private static void printFormattedResult(double result)
+        private static void PrintFormattedResult(MatchCollection operands,char op, double result)
         {
-            double precision = .00001;
-            if (Math.Abs(result - Math.Truncate(result)) < precision)
-            {
-                Console.WriteLine($"{result:0F}");
-            }
-            else{
-                Console.WriteLine($"{result:4F}");
-            }
+            Console.WriteLine($"{operands[0]}{op}{operands[1]} = {String.Format("{0:0.####}", result)}");
         }
 
     }
