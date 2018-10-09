@@ -6,6 +6,41 @@ namespace Assignment3
     class Program
     {
 
+
+        static void Main(string[] args)
+        {
+            (int ROCK, int PAPER, int SCISSORS) values = (20, 10, 15);
+            Player human = new Player();
+            Player computer = new Player("Computer");
+            PrintWelcome(values);
+            int round = 0;
+            string userChoice;
+
+            bool runFlag = true;
+            while (runFlag)
+            {
+                userChoice = GetUserChoice().ToLower();
+                if (CheckUserChoice(userChoice))
+                {
+                    human.LastMove = userChoice;
+                    computer.LastMove = GetComputerChoice();
+                    //EvaluateRound (tuple)
+                    //CalculateHealthPoints
+                    if (GameIsOver)
+                    {
+                        //runFlag = continuePrompt()
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid option, please retry.");
+                }
+
+            }
+            Console.WriteLine("\nGame complete.");
+        }
+
+
         public struct Player
         {
             readonly string name;
@@ -71,38 +106,6 @@ namespace Assignment3
 
         }
 
-        static void Main(string[] args)
-        {
-            (int ROCK, int PAPER, int SCISSORS) values = (20, 10, 15);
-            Player human = new Player();
-            Player computer = new Player("Computer");
-            PrintWelcome(values);
-            int round = 0;
-            string userChoice;
-
-            bool runFlag = true;
-            while (runFlag)
-            {
-                userChoice = GetUserChoice().ToLower();
-                if (CheckUserChoice(userChoice))
-                {
-                    human.LastMove = userChoice;
-                    computer.LastMove = GetComputerChoice();
-                    //EvaluateRound (tuple)
-                    //CalculateHealthPoints
-                    if (GameIsOver)
-                    {
-                        //runFlag = continuePrompt()
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid option, please retry.");
-                }
-
-            }
-            Console.WriteLine("\nGame complete.");
-        }
 
         public static void PrintWelcome((int ROCK, int PAPER, int SCISSORS) values)
         {
@@ -113,13 +116,13 @@ namespace Assignment3
             Console.Out.WriteLine($"Rock{values.ROCK}, Paper{values.PAPER}, Scissors{values.SCISSORS}");
         }
 
-        public static string GetUserChoice()
+        public static string GetUserChoice()//TODO Out
         {
             Console.Out.Write("Pick your choice; rock, paper, or scissors: ");
             return Console.ReadLine();
         }
 
-        public static bool CheckUserChoice(string choice)
+        public static bool CheckUserChoice(string choice)//TODO out
         {
             List<string> validOptions = new List<string> { "rock", "paper", "scissors" };
             if (string.IsNullOrEmpty(choice))
@@ -162,9 +165,6 @@ namespace Assignment3
             }
 
         }
-
-
-
 
     }
 }
