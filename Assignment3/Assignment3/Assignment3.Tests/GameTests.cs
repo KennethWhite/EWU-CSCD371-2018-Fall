@@ -11,7 +11,9 @@ namespace Assignment3.Tests
         //[TestMethod]
         //public void GetUserChoice_InvalidInput_ReturnsFalse(bool expected, string input)
         //{
-        //    IntelliTect.TestTools.Console.ConsoleAssert.Expect(expected, Game.GetUserChoice);
+
+        //    string expectedOutput = $@"Pick your choice; rock, paper, or scissors: <<{input}";
+        //    IntelliTect.TestTools.Console.ConsoleAssert.Expect(expectedOutput, Game.GetUserChoice(out string line))
         //}
 
         [TestMethod]
