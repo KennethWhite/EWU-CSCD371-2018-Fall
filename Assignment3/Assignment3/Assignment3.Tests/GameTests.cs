@@ -7,11 +7,11 @@ namespace Assignment3.Tests
     [TestClass]
     public class GameTests
     {
-        [DataRow("flub")]
-        [TestMethod]
-        //public void GetUserChoice_InvalidInput_ReturnsFalse(string input)
+        //[DataRow(false, "flub")]
+        //[TestMethod]
+        //public void GetUserChoice_InvalidInput_ReturnsFalse(bool expected, string input)
         //{
-        //    IntelliTect.TestTools.Console.ConsoleAssert.Expect("", Game.GetUserChoice);
+        //    IntelliTect.TestTools.Console.ConsoleAssert.Expect(expected, Game.GetUserChoice);
         //}
 
         [TestMethod]
@@ -34,8 +34,8 @@ namespace Assignment3.Tests
             Player h = new Player(lm: hLastMove);
             Player c = new Player(lm: cLastMove);
             RockPaperScissors rps = new RockPaperScissors();
-            (Player w, Player l, int damage) result = EvaluateRound(h,c, rps);
-            Assert.AreEqual(expectedDamage, result.damage);
+            (Player w, Player l, int damage) = EvaluateRound(h,c, rps);
+            Assert.AreEqual(expectedDamage, damage);
         }
 
         [DataRow("rock", "paper", "Player")]
@@ -48,8 +48,8 @@ namespace Assignment3.Tests
             Player h = new Player(n: "Human", lm: hLastMove);
             Player c = new Player(lm: cLastMove);
             RockPaperScissors rps = new RockPaperScissors();
-            (Player w, Player l, int damage) result = EvaluateRound(h, c, rps);
-            Assert.AreEqual(result.w.Name, expectedName);
+            (Player w, Player l, int damage) = EvaluateRound(h, c, rps);
+            Assert.AreEqual(w.Name, expectedName);
         }
 
         [DataRow(10, 90)]

@@ -34,7 +34,7 @@ namespace Assignment3
                     {
                         PrintStatus(round-1, human, computer);
                         Console.WriteLine($"\n{roundResult.winner.Name} has won!");
-                        runFlag = continuePrompt();
+                        runFlag = ContinuePrompt();
                         round = 0;
                         human.Health = 100;
                         computer.Health = 100;
@@ -160,7 +160,7 @@ namespace Assignment3
             return human.Health<=0 || computer.Health <=0;
         }
 
-        public static bool continuePrompt()
+        public static bool ContinuePrompt()
         {
             Console.Write("Do you wish to play again (y/n): ");
             string response = Console.ReadLine().ToLower();
