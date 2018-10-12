@@ -21,10 +21,11 @@ namespace Assignment3
             bool runFlag = true;
             while (runFlag)
             {
-                if (GetUserChoice(out string userChoice))
+                Console.Out.Write("Pick your choice; rock, paper, or scissors: ");
+                string userChoice = Console.ReadLine();
+                if (CheckUserChoice(userChoice))
                 {
                     round++;
-                   
                     human.LastMove = userChoice;
                     computer.LastMove = GetComputerChoice();
                     roundResult = EvaluateRound(human, computer, rps);
@@ -79,13 +80,10 @@ namespace Assignment3
             Console.Out.WriteLine($"Rock {rps.ROCK.damage}, Paper {rps.PAPER.damage}, Scissors {rps.SCISSORS.damage}\n");
         }
 
-        public static bool GetUserChoice(out string line)
+        public static bool CheckUserChoice(string line)
         {
             List<string> validOptions = new List<string> { "rock", "paper", "scissors" };
-            
-            Console.Out.Write("Pick your choice; rock, paper, or scissors: ");
-            line = Console.ReadLine();
-            
+                
             if (string.IsNullOrEmpty(line))
             {
                 return false;
@@ -133,14 +131,14 @@ namespace Assignment3
         }
 
        
-        private static void PrintStatus(int round, Player human, Player computer)
+        public static void PrintStatus(int round, Player human, Player computer)
         {
             Console.WriteLine($"\nRound {round}:");
             Console.WriteLine($"Round {human.Name}: {human.Health} health");
             Console.WriteLine($"Round {computer.Name}: {computer.Health} health");
         }
 
-        private static void PrintRoundResult((Player winner, Player loser, int damageTaken) result)
+        public static void PrintRoundResult((Player winner, Player loser, int damageTaken) result)
         {
             Console.WriteLine($"{result.winner.Name} used {result.winner.LastMove} vs " +
                    $"{result.loser.Name}'s {result.loser.LastMove}.");
