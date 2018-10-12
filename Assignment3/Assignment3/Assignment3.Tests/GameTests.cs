@@ -1,5 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using static Assignment3.Game;
 
 namespace Assignment3.Tests
@@ -7,14 +10,17 @@ namespace Assignment3.Tests
     [TestClass]
     public class GameTests
     {
-        //[DataRow(false, "flub")]
-        //[TestMethod]
-        //public void GetUserChoice_InvalidInput_ReturnsFalse(bool expected, string input)
-        //{
-
-        //    string expectedOutput = $@"Pick your choice; rock, paper, or scissors: <<{input}";
-        //    IntelliTect.TestTools.Console.ConsoleAssert.Expect(expectedOutput, Game.GetUserChoice(out string line))
-        //}
+        [DataRow(false, "flub")]
+        [TestMethod]
+        public void GetUserChoice_InvalidInput_ReturnsFalse(bool expected, string input)
+        {
+            StringBuilder sb = new StringBuilder();
+            StringWriter outputWriter = new StringWriter(sb);
+            Console.SetOut(outputWriter);
+            string expectedOutput = $@"Pick your choice; rock, paper, or scissors: <<{input}";
+            GetUserChoice(out string line);
+            Assert.AreEqual(expectedOutput, sb.ToString());
+        }
 
         [TestMethod]
         public void GetComputerChoice_ReturnsValidOption()
