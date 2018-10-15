@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Course.Tests
+namespace EventLibrary.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class EventLibraryTests
     {
         [TestMethod]
         public void TestMethod1()
