@@ -35,7 +35,7 @@ namespace Assignment4
 
         public string Department
         {
-            get => department;
+            get => _Department;
             set
             {
 
@@ -43,46 +43,46 @@ namespace Assignment4
                 {
                     throw new ArgumentException($"Department code must be at least 3 characters {value}");
                 }
-                this.department = value;
+                _Department = value;
 
             }
         }
-        private string department;
+        private string _Department;
 
         public string CourseID
         {
-            get => courseID;
+            get => _CourseID;
             set
             {
                 if (value.Length < 3)
                 {
                     throw new ArgumentException($"CourseID number must be at least 3 characters {value}");
                 }
-                this.courseID = value;
+                _CourseID = value;
             }
 
         }
-        private string courseID;
+        private string _CourseID;
 
         public string Instructor
         {
             get; set;
         }
-        private string instructor;
+        private string _Instructor;
 
         public string Schedule
         {
-            get => schedule;
+            get => _Schedule;
             set
             {
                 if (value.Length < 1)
                 {
                     throw new ArgumentException($"Schedule must be at least 1 day per week: {value}");
                 }
-                this.schedule = value;
+                _Schedule = value;
             }
         }
-        private string schedule;
+        private string _Schedule;
 
         public double Credits
         {
@@ -99,7 +99,7 @@ namespace Assignment4
             get;
             private set;
         }
-        private static int coursesCreated;
+        private static int _CoursesCreated;
 
         public override string GetSummaryInformation()
         {

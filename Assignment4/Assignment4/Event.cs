@@ -18,50 +18,50 @@ namespace Assignment4
 
         public virtual string Title
         {
-            get => title;
+            get => _Title;
             set
             {
                 if (value.Length < 3)
                 {
                     throw new ArgumentException($"Course Title must be 3 or more characters: {value}");
                 }
-                this.title = value;
+                _Title = value;
             }
         }
-        private string title;
+        private string _Title;
 
         public string Location { get; set; }
 
         public DateTime StartDate
         {
-            get => startDate;
+            get => _StartDate;
             private set
             {
-                this.startDate = value;
+                _StartDate = value;
             }
         }
-        private DateTime startDate;
+        private DateTime _StartDate;
 
         public DateTime EndDate
         {
-            get => endDate;
+            get => _EndDate;
             private set
             {
-                if (value.CompareTo(startDate) < 0)
+                if (value.CompareTo(_StartDate) < 0)
                 {
                     throw new ArgumentOutOfRangeException($"Event end date cannot be before start: {value.ToString()}");
                 }
-                this.endDate = value;
+                _EndDate = value;
             }
         }
-        private DateTime endDate;
+        private DateTime _EndDate;
 
         public static int EventsCreated
         {
             get;
             private set;
         }
-        private static int eventsCreated;
+        private static int _EventsCreated;
 
         public virtual string GetSummaryInformation()
         {
