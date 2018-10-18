@@ -21,7 +21,7 @@ namespace Assignment4
             get => _Title;
             set
             {
-                if (value.Length < 3)
+                if (value.Length < 3 || string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"Course Title must be 3 or more characters: {value}");
                 }
@@ -65,7 +65,7 @@ namespace Assignment4
 
         public virtual string GetSummaryInformation()
         {
-            return $@"Title: {Title}\n" +
+            return $"Title: {Title}\n" +
                 $"Location: {Location}\n" +
                 $"Dates: {StartDate}-{EndDate}";
 

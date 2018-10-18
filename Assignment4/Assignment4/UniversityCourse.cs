@@ -39,7 +39,7 @@ namespace Assignment4
             set
             {
 
-                if (value.Length < 3)
+                if (value.Length < 3 || string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"Department code must be at least 3 characters {value}");
                 }
@@ -54,7 +54,7 @@ namespace Assignment4
             get => _CourseID;
             set
             {
-                if (value.Length < 3)
+                if (value.Length < 3 || string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"CourseID number must be at least 3 characters {value}");
                 }
@@ -75,7 +75,7 @@ namespace Assignment4
             get => _Schedule;
             set
             {
-                if (value.Length < 1)
+                if (value.Length < 1 || string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException($"Schedule must be at least 1 day per week: {value}");
                 }
@@ -88,7 +88,7 @@ namespace Assignment4
         {
             get
             {
-                string[] days = Schedule.Split(" ,");
+                string[] days = Schedule.Split(" ");
                 double hoursPerDay = EndDate.Hour - StartDate.Hour + (EndDate.Minute - StartDate.Minute) / 60.0;
                 return days.Length * hoursPerDay;
             }
@@ -104,7 +104,7 @@ namespace Assignment4
         public override string GetSummaryInformation()
         {
             return base.GetSummaryInformation() +
-                $"Instructor: {Instructor}" +
+                $"Instructor: {Instructor}\n" +
                 $"Schedule: {Schedule}";
 
         }

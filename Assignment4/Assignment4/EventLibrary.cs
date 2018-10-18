@@ -15,7 +15,7 @@ namespace Assignment4
                 case Event e when e.EndDate.CompareTo(DateTime.Now) > 0:
                     return e.GetSummaryInformation();
                 case null:
-                    throw new ArgumentNullException("Event null on call to Display!");
+                    throw new ArgumentNullException("object null on call to Display");
                 default:
                     return evnt.ToString();
             }
