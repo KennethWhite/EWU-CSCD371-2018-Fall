@@ -6,13 +6,13 @@ namespace Assignment4
 {
     public static class EventLibrary
     {
-        public static string Display(Object evnt)
+        public static string Display(Object evnt) 
         {
             switch (evnt)
             {
                 case UniversityCourse course:
                     return course.GetSummaryInformation();
-                case Event e when e.EndDate.CompareTo(DateTime.Now) > 0:
+                case Event e:
                     return e.GetSummaryInformation();
                 case null:
                     throw new ArgumentNullException("object null on call to Display");
@@ -21,10 +21,10 @@ namespace Assignment4
             }
         }
 
-        public static string Display(List<Object> list)
+        public static string Display<T>(List<T> list) where T : Event
         {
             string summary = "";
-            foreach (Object o in list)
+            foreach (T o in list)
             {
                 summary += Display(o);
             }

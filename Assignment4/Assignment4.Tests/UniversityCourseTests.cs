@@ -155,7 +155,13 @@ namespace UniversityCourse.Tests
         [TestMethod]
         public void GetSummaryInfo_ReturnsSummary()
         {
-            Assert.IsNotNull(Course.GetSummaryInformation());
+            Assert.AreEqual(
+                $"Title: {Course.Title}\n" +
+                $"Location: {Course.Location}\n" +
+                $"Dates: {Course.StartDate}-{Course.EndDate}" +
+                $"Instructor: {Course.Instructor}\n" +
+                $"Schedule: {Course.Schedule}",
+            Course.GetSummaryInformation());
 
         }
 

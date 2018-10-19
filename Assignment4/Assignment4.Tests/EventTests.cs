@@ -86,5 +86,25 @@ namespace Event.Tests
             Assert.AreEqual(count+1, Assignment4.Event.EventsCreated);
         }
 
+        [TestMethod]
+        public void GetEventsCreated_TestingDerivedClass_ReturnsIncrementedValue()
+        {
+            int count = Assignment4.Event.EventsCreated;
+            Assignment4.Event e = new Assignment4.UniversityCourse(
+                ".Net GUI", "CEB 207", new DateTime(2018, 10, 14, 14, 0, 0), new DateTime(2018, 10, 14, 16, 30, 0),
+                "CSCD", "371", "Michaelis", "T Th");
+            Assert.AreEqual(count + 1, Assignment4.Event.EventsCreated);
+        }
+
+        [TestMethod]
+        public void GetSummaryInfo_ReturnsSummary()
+        {
+            Assert.AreEqual(
+                $"Title: {Event.Title}\n" +
+                $"Location: {Event.Location}\n" +
+                $"Dates: {Event.StartDate}-{Event.EndDate}",
+                Event.GetSummaryInformation());
+
+        }
     }
 }
