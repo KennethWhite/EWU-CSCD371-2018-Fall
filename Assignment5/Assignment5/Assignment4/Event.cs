@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Assignment5;
 
 namespace Assignment4
 {
-    public class Event
+    public class Event : IEvent
     {
 
         public Event(string title, string location, DateTime start, DateTime end)
@@ -69,6 +68,16 @@ namespace Assignment4
                 $"Location: {Location}\n" +
                 $"Dates: {StartDate}-{EndDate}";
 
+        }
+
+        DateTime IEvent.GetEndDate()
+        {
+            return EndDate;
+        }
+
+        DateTime IEvent.GetStartDate()
+        {
+            return StartDate;
         }
 
     }
