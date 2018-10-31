@@ -60,7 +60,7 @@ namespace Assignment4
             get;
             private set;
         }
-        private static int _EventsCreated;
+        private readonly static int _EventsCreated;
 
         public virtual string GetSummaryInformation()
         {

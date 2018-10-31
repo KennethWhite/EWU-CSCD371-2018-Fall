@@ -4,15 +4,15 @@ using System.Text;
 
 namespace Assignment5
 {
-    public class EventConsole : IConsole
+    public class MyConsole : IConsole
     {
 
-        public string EventReadLine()
+        public string ReadLine()
         {
             return Console.ReadLine();
         }
 
-        public void EventWriteLine(string line)
+        public void WriteLine(string line)
         {
             Console.WriteLine(line);
         }
