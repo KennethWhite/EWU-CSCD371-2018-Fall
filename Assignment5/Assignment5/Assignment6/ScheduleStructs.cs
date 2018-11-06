@@ -2,38 +2,34 @@
 
 namespace Assignment6
 {
-    [Flags]
-    public enum DaysOfWeek
-    {
-        Sunday = 1 << 0,
-        Monday = 1 << 1,
-        Tuesday = 1 << 2,
-        Wednesday = 1 << 3,
-        Thursday = 1 << 4,
-        Friday = 1 << 5,
-        Saturday = 1 << 6,
-    }
-
-    [Flags]
-    public enum Quarter
-    {
-        Winter = 1 << 0,
-        Spring = 1 << 1,
-        Summer = 1 << 2,
-        Fall = 1 << 3,
-    }
-
     public readonly struct TimeValue
     {
+
+        public TimeValue(int h, int m, int s)
+        {
+            Hour = h;
+            Minute = m;
+            Second = s;
+        }
+
         public int Hour { get; }
-        public int Min { get; }
-        public int Seconds { get; }
+        public int Minute { get; }
+        public int Second { get; }
     }
 
     public readonly struct Schedule
     {
-        public int DaysOfWeek { get; }
-        public int Quarter { get; }
+
+        public Schedule(DaysOfWeek d, Quarter q, TimeValue tv, TimeSpan ts)
+        {
+            DaysOfWeek = d;
+            Quarter = q;
+            StartTime = tv;
+            Duration = ts;
+        }
+
+        public Enum DaysOfWeek { get; }
+        public Enum Quarter { get; }
         public TimeValue StartTime { get; }
         public TimeSpan Duration { get; }
     }

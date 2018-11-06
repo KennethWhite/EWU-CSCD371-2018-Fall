@@ -5,7 +5,7 @@ using Assignment6;
 namespace Assignment6.Tests
 {
     [TestClass]
-    public class EnumTests
+    public class ScheduleEnumTests
     {
         [TestMethod]
         [DataRow("Monday", DaysOfWeek.Monday)]
