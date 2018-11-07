@@ -5,16 +5,16 @@ namespace Assignment6
     public readonly struct TimeValue
     {
 
-        public TimeValue(int h, int m, int s)
+        public TimeValue(byte h, byte m, byte s)
         {
             Hour = h;
             Minute = m;
             Second = s;
         }
 
-        public int Hour { get; }
-        public int Minute { get; }
-        public int Second { get; }
+        public byte Hour { get; }
+        public byte Minute { get; }
+        public byte Second { get; }
     }
 
     public readonly struct Schedule
@@ -22,14 +22,14 @@ namespace Assignment6
 
         public Schedule(DaysOfWeek d, Quarter q, TimeValue tv, TimeSpan ts)
         {
-            DaysOfWeek = d;
-            Quarter = q;
-            StartTime = tv;
-            Duration = ts;
+            DaysOfWeek = d; //1
+            Quarter = q;    //1
+            StartTime = tv; //3
+            Duration = ts;  //8
         }
 
-        public Enum DaysOfWeek { get; }
-        public Enum Quarter { get; }
+        public DaysOfWeek DaysOfWeek { get; }
+        public Quarter Quarter { get; }
         public TimeValue StartTime { get; }
         public TimeSpan Duration { get; }
     }

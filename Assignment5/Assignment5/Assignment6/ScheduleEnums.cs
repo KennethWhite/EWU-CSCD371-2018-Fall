@@ -3,7 +3,7 @@
 namespace Assignment6
 {
     [Flags]
-    public enum DaysOfWeek
+    public enum DaysOfWeek : byte
     {
         Sunday = 1 << 0,
         Monday = 1 << 1,
@@ -15,7 +15,7 @@ namespace Assignment6
     }
 
     [Flags]
-    public enum Quarter
+    public enum Quarter :byte
     {
         Winter = 1 << 0,
         Spring = 1 << 1,
