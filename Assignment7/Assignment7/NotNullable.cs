@@ -35,8 +35,9 @@ namespace Assignment7
     public class NotNullable<T>
         where T : class
     {
-        T _Value {
-            get { return _Value; }
+        public T Value
+        {
+            get => _Value;
             set
             {
                 if (value == null)
@@ -46,9 +47,10 @@ namespace Assignment7
                 _Value = value;
             }
         }
-        
+        private T _Value;
+
         public NotNullable(T value){
-            _Value = value;
+            Value = value;
         }
     }
 }
