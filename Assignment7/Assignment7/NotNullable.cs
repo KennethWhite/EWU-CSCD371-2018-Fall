@@ -7,13 +7,13 @@ namespace Assignment7
      
      Benefits vs Struct:
          1. One benefit of this is that when passing this object as a parameter a reference
-         of this object is passed, allowing changes to the original object, as well as saving
+         of this object is passed. This allows changes to the original object, as well as saving
          memory on passing the parameter. 
-         2. If this were set up so that T had to be of type struct the contents of the struct 
+         2. If this were set up so that T had to be of type struct, the contents of the struct 
          would be copied everytime the class was passed as a parameter 
          (barring the use of the ref keyword). 
          3. In addition structs are by convention read-only and do not have property setters, 
-         so using a class type may allow the data contained within NotNullable to be changed.
+         so using a class type may allow the data contained within NotNullable._Value to be changed.
 
      Caveats:
          1. Unfortunately this implementation using reference types must still check for Null values
