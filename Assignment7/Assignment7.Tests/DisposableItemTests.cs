@@ -37,6 +37,11 @@ namespace Assignment7.Tests
             Assert.AreEqual(resourcesBefore, DisposableItem.ResourcesAvailable);
         }
 
+
+        /*
+        This test passes, but it might be depending on the CLI garbage collector
+        which could cause intermittent failures
+        */
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void ItemLeavesScope_ObjectFinalizeInvoked_ResourceFreed()
