@@ -13,6 +13,7 @@ namespace Assignment7
         {
             if (!(ResourcesAvailable > 0))
             {
+                Disposed = true;
                 throw new InvalidOperationException("No resources available on call to DisposableItem CTOR.");
             }
             ResourcesAvailable--;

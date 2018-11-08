@@ -7,6 +7,8 @@ namespace Assignment7.Tests
     [TestClass]
     public class DisposableItemTests
     {
+
+
         [TestMethod]
         public void CreateDisposableItem_ResourcesAvailableDecreases()
         {
@@ -17,17 +19,30 @@ namespace Assignment7.Tests
         }
 
 
-  
+        /*This method was causing some issues with other tests. In particular
+         * item and item2 were not having their resources freed manually and 
+         * were relying upon the GarbageCollector to do so. In order to free these
+         * resources immediately I included a Try/Catch block with some elements 
+         * outside of the block so they could be manually freed in the catch.
+         */
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        //[ExpectedException(typeof(InvalidOperationException))]
         public void CreateDisposableItem_NoResourcesAvailable_ExceptionThrown()
         {
             DisposableItem item = new DisposableItem();
             DisposableItem item2 = new DisposableItem();
-            DisposableItem item3 = new DisposableItem(); //fails
-            Assert.Fail();
-            item.Dispose();
-            item2.Dispose();
+            try
+            {    
+                DisposableItem item3 = new DisposableItem(); //fails
+                Assert.Fail();
+            }
+        
+            catch(InvalidOperationException ex)
+            {
+                item.Dispose();
+                item2.Dispose();
+            }
+            
            
         }
 
