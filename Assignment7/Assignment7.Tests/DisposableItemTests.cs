@@ -13,6 +13,7 @@ namespace Assignment7.Tests
             int resourcesBefore = DisposableItem.ResourcesAvailable;
             DisposableItem item = new DisposableItem();
             Assert.AreEqual(resourcesBefore-1, DisposableItem.ResourcesAvailable);
+            item.Dispose();
         }
 
 
@@ -25,10 +26,12 @@ namespace Assignment7.Tests
             DisposableItem item2 = new DisposableItem();
             DisposableItem item3 = new DisposableItem(); //fails
             Assert.Fail();
+            item.Dispose();
+            item2.Dispose();
+           
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void ManuallyDisposeItem_ResourceFreed()
         {
             int resourcesBefore = DisposableItem.ResourcesAvailable;
