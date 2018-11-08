@@ -6,13 +6,26 @@ namespace Assignment7.Tests
     [TestClass]
     public class NotNullableTests
     {
+        private NotNullable<string> _NotNullString;
+        private string _Input;
+
+        [TestInitialize]
+        public void SetupNotNullable()
+        {
+            _Input = "I am not Null, I'm a real string!";
+            _NotNullString = new NotNullable<string>(_Input);
+        }
+
         [TestMethod]
         public void PassInstatiatedValue_NotNullableInitialized()
         {
-            string input = "I am not Null, I'm a real string!";
-            NotNullable<string> sut = new NotNullable<string>(input);
-            Assert.IsNotNull(sut.Value);
-            Assert.AreEqual(input, sut.Value);
+            Assert.IsNotNull(_NotNullString.Value);
+        }
+
+        [TestMethod]
+        public void PassInstatiatedValue_EqualToNotNullableValue()
+        {
+            Assert.AreEqual(_Input, _NotNullString.Value);
         }
 
 
