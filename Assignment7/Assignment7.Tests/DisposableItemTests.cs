@@ -39,20 +39,29 @@ namespace Assignment7.Tests
 
 
         /*
-        This test passes, but it might be depending on the CLI garbage collector
-        which could cause intermittent failures
+        This test relies upon the Finalize method which executes on its own thread.
+        This makes its execution difficult to predict and failures of this test method
+        difficult to diagnose
         */
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void ItemLeavesScope_ObjectFinalizeInvoked_ResourceFreed()
         {
             int resourcesBefore = DisposableItem.ResourcesAvailable;
-            if (true)
-            {
-                DisposableItem item = new DisposableItem();
-            }
+            int generation = GarbageMaker.MakeGarbage();
+            GC.Collect(generation);
+            System.Threading.Thread.Sleep(100); //sleep this thread to allow time for finalization
             Assert.AreEqual(resourcesBefore, DisposableItem.ResourcesAvailable);
         }
 
+    }
+
+    class GarbageMaker
+    {
+        public static int MakeGarbage()
+        {
+            DisposableItem item = new DisposableItem();
+            DisposableItem item2 = new DisposableItem();
+            return GC.GetGeneration(item);
+        }
     }
 }
