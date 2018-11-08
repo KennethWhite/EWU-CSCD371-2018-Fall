@@ -19,23 +19,31 @@ namespace Assignment7
             Disposed = false;
         }
 
-        public void Dispose()
+        private void Dispose(bool disposeOfResource)
         {
-            if (!Disposed)
+            if (Disposed)
+            {
+                return;
+            }
+            if (disposeOfResource)
             {
                 ResourcesAvailable++;
                 Disposed = true;
             }
+            
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
 
         //Override Object.Finalize()
         ~DisposableItem()
         {
-            if (!Disposed) {
-                ResourcesAvailable--;
-                Disposed = true;
-            } 
+            Dispose(true);
         }
 
+        
     }
 }
