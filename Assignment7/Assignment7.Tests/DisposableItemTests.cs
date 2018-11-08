@@ -41,7 +41,8 @@ namespace Assignment7.Tests
         /*
         This test relies upon the Finalize method which executes on its own thread.
         This makes its execution difficult to predict and failures of this test method
-        difficult to diagnose
+        difficult to diagnose. Sleeping this thread stopped me from getting any intermittent
+        failures, but there is not a guarantee this will always pass
         */
         [TestMethod]
         public void ItemLeavesScope_ObjectFinalizeInvoked_ResourceFreed()
