@@ -27,7 +27,7 @@ namespace Assignment7
          while a struct can never be null, it may have a default value which does not conform to the application
          intended use.
 
-         A potention workaround to this is to check if(MyStruct.Equals(default(T)), where T is the type of
+         A potential workaround to this is to check if(MyStruct.Equals(default(T)), where T is the type of
          class/strcut the property points to. Again however, this is a runtime check as opposed to a compile time
          one like we would ideally achieve.
 
