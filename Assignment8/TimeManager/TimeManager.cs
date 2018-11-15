@@ -1,34 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using static IDateTime.IDateTime;
 
-namespace TimeManager
+namespace EventTimer
 {
-    public class TimeManager
+    public class TimeManager : INotifyPropertyChanged, IDateTime.IDateTime
     {
-        public event Func<int> GetValue;
-        public event Action TimeEventCreated;
-        public event EventHandler<EventArgs> GenericEvent;
-        public event EventHandler<AddEventArgs> AddEvent;
+        private DateTime StartTime;
+        private DateTime EndTime;
+        private bool TimerRunning;
 
-        public void RaiseEvent()
+        public TimeSpan TimeElapsed
         {
-            TimeEventCreated?.Invoke();
+            get => _TimeElapsed;
+            set
+            {
+                if (_TimeElapsed != value)
+                {
+                    _TimeElapsed = value;
+                    OnPropertyChanged(nameof(TimeElapsed));
+                }
+            }
+        }
+        private TimeSpan _TimeElapsed;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        public bool StartTimer()
+        {
+            StartTime = TimerRunning ? StartTime : GetDateTimeNow();
+            bool TimerStarted = !TimerRunning;
+            TimerRunning = true;
+            return TimerStarted;
         }
 
-        public int RaiseGetValue() => GetValue?.Invoke() ?? 0;
-
-        public void RaiseGenericEvent(EventArgs e)
+        public bool EndTimer()
         {
-
+            if (TimerRunning)
+            {
+                EndTime = GetDateTimeNow();
+                return true;
+            }
+            return false;
         }
 
-        public class AddEventArgs : EventArgs
+        public DateTime GetDateTimeNow()
         {
-
+            return DateTime.Now;
         }
+
+        
 
     }
 }

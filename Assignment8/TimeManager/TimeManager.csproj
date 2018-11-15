@@ -44,5 +44,11 @@
     <Compile Include="TimeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IDateTime\IDateTime.csproj">
+      <Project>{1b43180f-0e43-4ea5-be8a-1f5524cb0505}</Project>
+      <Name>IDateTime</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

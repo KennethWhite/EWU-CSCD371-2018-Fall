@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TimeManager\TimeManager.csproj">
+      <Project>{722f6c40-cec5-4fc1-9e36-2485f2b973a0}</Project>
+      <Name>TimeManager</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
