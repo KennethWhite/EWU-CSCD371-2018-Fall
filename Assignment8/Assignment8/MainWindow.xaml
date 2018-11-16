@@ -13,6 +13,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition/>
 
@@ -23,23 +24,41 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Row="0" x:Name="ListBox" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray">
+            <ListBox Grid.Row="0" x:Name="ItemList" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding TimeEvent}" Background="Black" FontSize="25" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="{Binding Path=IntervalString}" FontSize="25" />
+                            <TextBlock Grid.Row="1" Text="{Binding Path=Description}" FontSize="25" />
+                            <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"  Content="DELETE" Background="Red" 
+                                    Click="RemoveListBoxItem"></Button>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <TextBlock Name="TimeDisplayTextBlock" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=TimeElapsed}" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <TextBlock Name="TimeDisplayTextBlock" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Path=TimeElapsed}"
+                       FontWeight="Bold" HorizontalAlignment="Center" FontSize="24"/>
+            <TextBlock Name="ClockDisplayTextBlock" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Path=CurrentTime}"
+                       FontWeight="Bold" HorizontalAlignment="Center" FontSize="24"/>
 
-            <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="Enter a Description of the Event" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <TextBox Grid.Row="3" Grid.ColumnSpan="2" x:Name="DescriptionText" TextWrapping="Wrap" />
+            <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="Enter a Description of the Event" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <TextBox Grid.Row="4" Grid.ColumnSpan="2" x:Name="DescriptionText" TextWrapping="Wrap" />
 
-            <Button Grid.Row="4" Grid.Column="0" Margin="5" Content="Start" Background="LawnGreen"
-                    Click=""/>
-            <Button Grid.Row="4" Grid.Column="1" Margin="5" Content="Stop" Background="Red"/>
-            <TextBlock x:Name="WarningText"  Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding Path=Warning}" FontWeight="Bold" 
+            <Button Grid.Row="5" Grid.Column="0" Margin="5" Content="Start" Background="LawnGreen"
+                   Click="StartButton_OnClick" />
+            <Button Grid.Row="5" Grid.Column="1" Margin="5" Content="Stop" Background="Red"
+                    Click="StopButton_OnClick" />
+            <TextBlock x:Name="WarningText"  Grid.Row="6" Grid.ColumnSpan="2" Text="{Binding Path=Warning}" FontWeight="Bold" 
                        HorizontalAlignment="Center" Visibility="Hidden" Background="Red"/>
 
 

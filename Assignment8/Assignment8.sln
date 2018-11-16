@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFApplication", "Assignment8\WPFApplication.csproj", "{36AEE0B5-3F7C-4B36-A0F9-4F8E90FA0E69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment8.Tests", "Assignment8.Tests\Assignment8.Tests.csproj", "{86C3A39C-88A6-4C66-81C0-AA09A1B15E0A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeManager", "TimeManager\TimeManager.csproj", "{722F6C40-CEC5-4FC1-9E36-2485F2B973A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDateTime", "IDateTime\IDateTime.csproj", "{1B43180F-0E43-4EA5-BE8A-1F5524CB0505}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeManager.Tests", "TimeManager.Tests\TimeManager.Tests.csproj", "{AFCCA7A1-11B0-4848-BC28-E30B18F97128}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{36AEE0B5-3F7C-4B36-A0F9-4F8E90FA0E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36AEE0B5-3F7C-4B36-A0F9-4F8E90FA0E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36AEE0B5-3F7C-4B36-A0F9-4F8E90FA0E69}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86C3A39C-88A6-4C66-81C0-AA09A1B15E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86C3A39C-88A6-4C66-81C0-AA09A1B15E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86C3A39C-88A6-4C66-81C0-AA09A1B15E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86C3A39C-88A6-4C66-81C0-AA09A1B15E0A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{722F6C40-CEC5-4FC1-9E36-2485F2B973A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{722F6C40-CEC5-4FC1-9E36-2485F2B973A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{722F6C40-CEC5-4FC1-9E36-2485F2B973A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{1B43180F-0E43-4EA5-BE8A-1F5524CB0505}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B43180F-0E43-4EA5-BE8A-1F5524CB0505}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B43180F-0E43-4EA5-BE8A-1F5524CB0505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFCCA7A1-11B0-4848-BC28-E30B18F97128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFCCA7A1-11B0-4848-BC28-E30B18F97128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFCCA7A1-11B0-4848-BC28-E30B18F97128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFCCA7A1-11B0-4848-BC28-E30B18F97128}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

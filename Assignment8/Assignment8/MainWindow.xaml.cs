@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using EventTimer;
+using static EventTimer.TimeManager;
 
 namespace Assignment8
 {
@@ -15,39 +16,20 @@ namespace Assignment8
 
         public MainWindow()
         {
-            DataContext = new TimeManager();
+            DataContext = new TimeManager(AddListBoxItem);
             InitializeComponent();
         }
 
-        private void StartButton_OnClick()
+        private void StartButton_OnClick(object sender, RoutedEventArgs e)
         {
             bool success = ((TimeManager)DataContext).StartTimer();
-            if (!success)
-            {
-                Warning = "Failed to start timer, timer already running!";
-            }
-            else
-            {
-                //start a timer to update elasped time with current interval
-            }
+            Warning = success ? "" : "Failed to start timer, timer already running!";
         }
 
-        private void StopButton_OnClick()
+        private void StopButton_OnClick(object sender, RoutedEventArgs e)
         {
-            bool success = ((TimeManager)DataContext).EndTimer();
-            if (!success)
-            {
-                Warning = "Failed to stop timer, no timer running!";
-            }
-            else
-            {
-                string description = DescriptionText.Text;
-                TimeSpan duration = ((TimeManager)DataContext).TimeElapsed;
-                Event e = new Event(description, duration);
-                ListBox.Items.Add(e.ToString());
-                //set timer text to be 00:00:00
-                DescriptionText.Text = "";
-            }
+            bool success = ((TimeManager)DataContext).EndTimer(DescriptionText.Text);
+            Warning = success ? "":"Failed to stop timer, no timer running!" ;
         }
 
         private string Warning
@@ -71,18 +53,18 @@ namespace Assignment8
         }
         private string _Warning;
 
-        private struct Event
+        public void AddListBoxItem(TimeEvent e)
         {
-            public Event(string d, TimeSpan t)
+ 
+            ItemList.Items.Add(e);
+        }
+
+        public void RemoveListBoxItem(object sender, RoutedEventArgs args)
+        {
+            Button toRemove = (Button)sender;
+            if (toRemove.DataContext is TimeEvent e)
             {
-                Description = d;
-                Duration = t;
-            }
-            public TimeSpan Duration { get; private set; }
-            public string Description { get; private set; }
-            public override string ToString()
-            {
-                return $"{Duration.ToString()} : {Description}";
+                ItemList.Items.Remove(e);
             }
         }
 
