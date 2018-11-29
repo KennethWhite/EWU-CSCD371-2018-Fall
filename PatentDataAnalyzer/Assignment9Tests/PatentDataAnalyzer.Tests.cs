@@ -2,7 +2,7 @@ using EssentialCSharpPatentData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using PatentDataAnalyzerRef = PatentDataAnalyzer.PatentDataAnalyzer;
+using Assignment9;
 
 namespace Assignment9Tests
 {
@@ -12,7 +12,7 @@ namespace Assignment9Tests
         [TestMethod]
         public void InventorNames_InvalidCountry_ListEmpty()
         {
-            Assert.IsTrue(PatentDataAnalyzerRef.InventorNames("Timbuktu").Count == 0);
+            Assert.IsTrue(PatentDataAnalyzer.InventorNames("Timbuktu").Count == 0);
         }
 
         [TestMethod]
@@ -20,7 +20,7 @@ namespace Assignment9Tests
         [DataRow("UK", 1)]
         public void InventorNames_ValidCountry_ListContainsCorrectNumber(string country, int expected)
         {
-            Assert.AreEqual(expected, PatentDataAnalyzerRef.InventorNames(country).Count);
+            Assert.AreEqual(expected, PatentDataAnalyzer.InventorNames(country).Count);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace Assignment9Tests
                 "Michaelis",
                 "Jacob"
             };
-            IEnumerable<string> lastNames = PatentDataAnalyzerRef.InventorLastNames();
+            IEnumerable<string> lastNames = PatentDataAnalyzer.InventorLastNames();
             foreach(string name in lastNames)
             {
                 Assert.IsTrue(validLastNames.Contains(name));
@@ -45,7 +45,7 @@ namespace Assignment9Tests
         [TestMethod]
         public void InventorLastNames_ReturnsNamesInReverseOrderById()
         {
-            IEnumerable<string> lastNames = PatentDataAnalyzerRef.InventorLastNames();
+            IEnumerable<string> lastNames = PatentDataAnalyzer.InventorLastNames();
             int currentID = PatentData.Inventors.Length-1;
             foreach(string name in lastNames)
             {
@@ -57,7 +57,7 @@ namespace Assignment9Tests
         [TestMethod]
         public void LocationsWithInventors_ReturnsDistinctList()
         {
-            string result = PatentDataAnalyzerRef.LocationsWithInventors();
+            string result = PatentDataAnalyzer.LocationsWithInventors();
             string[] locations = result.Split(", ");
             List<string> locationsList = new List<string>(locations);
             foreach(string location in locationsList)
@@ -74,7 +74,7 @@ namespace Assignment9Tests
             for (int iteration = 0; iteration < 3; iteration++ )
             {
                 IEnumerable<Inventor> randomizedList =
-                PatentDataAnalyzer.Enumerable.Randomize<Inventor>(PatentData.Inventors);
+                Assignment9.Enumerable.Randomize<Inventor>(PatentData.Inventors);
                 Assert.IsFalse(randomizedList.SequenceEqual(PatentData.Inventors));
                 Assert.IsFalse(randomizedList.SequenceEqual(prevList));
                 prevList = randomizedList;
@@ -89,7 +89,7 @@ namespace Assignment9Tests
                 1,1,2,3,5,8,13,21,34,55,89,144
             };
 
-            int[] results = PatentDataAnalyzerRef.NthFibbonacciNumbers(fibs.Count).ToArray();
+            int[] results = PatentDataAnalyzer.NthFibbonacciNumbers(fibs.Count).ToArray();
             for (int n = 0; n < fibs.Count; n++)
             {
                 Assert.AreEqual(fibs[n], results[n]);
