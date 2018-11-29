@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EssentialCSharpPatentData;
 
-namespace Assignment9
+namespace PatentDataAnalyzer
 {
     public static class PatentDataAnalyzer
     {
@@ -46,7 +46,7 @@ namespace Assignment9
         {
             return string.Join(", ", 
                 (from inventor in PatentData.Inventors
-                 select $"{inventor.State}-{inventor.Country}").Distinct().ToArray());   
+                 select $"{inventor.State}-{inventor.Country}").Distinct());   
         }
 
         /// <summary>
@@ -58,6 +58,8 @@ namespace Assignment9
         {
             //unsure if I should return the number occuring at every
             //k*nth index, or all of the first n fibonacci numbers
+
+            //Try using iterator and return the item at k*nth index using yield
             int[] fibs = new int[n];
             fibs[0] = 1;
             fibs[1] = 1;
@@ -70,7 +72,7 @@ namespace Assignment9
             //return fibs.Where(x => x % n == 0); //every nth element
         }
 
-        
+
 
 
         /// <summary>
@@ -79,23 +81,35 @@ namespace Assignment9
         /// </summary>
         /// <param name="numberOfPatents">Number of patents each inventor must have</param>
         /// <returns>List of inventors that have n patents</returns>
-        
-        //public static List<Inventor> GetInventorsWithMultiplePatents(int numberOfPatents)
-        //{
-        //    return
-        //        from patent in PatentData.Patents
-        //        group patent by patent.InventorIds
-        //        into groups
-        //        select groups.Join(
-        //            PatentData.Inventors,
-        //            patent => patent.InventorIds,
-        //            inventor => inventor.Id,
-        //            (patent, inventors) =>
-        //            {
 
-        //            }
-        //       
-        //}
+        public static List<Inventor> GetInventorsWithMultiplePatents(int numberOfPatents)
+        {
+            //return
+            //    from patent in PatentData.Patents
+            //    group patent by patent.InventorIds
+            //    into groups
+            //    select groups.Join(
+            //        PatentData.Inventors,
+            //        patent => patent.InventorIds,
+            //        inventor => inventor.Id,
+            //        (patent, inventors) =>
+            //        {
+
+            //        }
+
+            //try dictionary approach, add inventor Ids to Dict
+            //iterate through keyset
+
+            var inventors = PatentData.Inventors.ToList();
+            var patents = PatentData.Patents.ToList();
+
+            inventors.Where(inventor =>
+           {
+               int count = patents.Count(patent => patent.InventorIds.Contains(inventor.Id));
+               return count >= numberOfPatents;
+           });
+
+        }
 
     }
 }

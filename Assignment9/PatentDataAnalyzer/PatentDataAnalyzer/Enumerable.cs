@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Assignment9
+namespace PatentDataAnalyzer
 {
     public static class Enumerable
     {
@@ -16,22 +17,27 @@ namespace Assignment9
         /// <returns>An IEnumerable representing the newly ordered collection</returns>
         public static IEnumerable<T> Randomize<T>(this IEnumerable<T> collection)
         {
-            List<T> items = new List<T>();
-            foreach (T item in collection)
-            {
-                items.Add(item);
-            }
+            List<T> items = collection.ToList();
             int count = items.Count;
             Random rng = new Random();
-            while (count > 1)
+
+            while (items.Any())
             {
-                count--;
-                int k = rng.Next(count + 1);
-                T value = items[k];
-                items[k] = items[count];
-                items[count] = value;
+                int index = rng.Next(items.Count);
+                T item = items[index];
+                items.RemoveAt(index);
+                yield return item;
             }
-            return items;
+
+            //while (count > 1)
+            //{
+            //    count--;
+            //    int k = rng.Next(count + 1);
+            //    T value = items[k];
+            //    items[k] = items[count];
+            //    items[count] = value;
+            //}
+            //return items;
         }
     }
 }
