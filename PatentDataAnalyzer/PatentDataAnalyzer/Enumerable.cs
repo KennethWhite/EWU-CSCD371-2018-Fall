@@ -9,7 +9,7 @@ namespace PatentDataAnalyzer
         /// <summary>
         /// Randomize: Write an IEnumerable<T> extension method on a class called Enumerable<T> 
         /// that returns an IEnumerable<T> of the original items in random order. 
-        //  To test execute the method using LINQ and verify the order is not the same for at least 3 invocations.
+        ///  To test execute the method using LINQ and verify the order is not the same for at least 3 invocations.
         /// </summary>
         /// <typeparam name="T">Type parameter of IEnumerable</typeparam>
         /// <param name="collection">The collection to be randomized</param>

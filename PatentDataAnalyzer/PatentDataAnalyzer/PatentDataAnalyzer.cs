@@ -77,6 +77,7 @@ namespace PatentDataAnalyzer
         /// </summary>
         /// <param name="numberOfPatents">Number of patents each inventor must have</param>
         /// <returns>List of inventors that have n patents</returns>
+        
         //public static List<Inventor> GetInventorsWithMultiplePatents(int numberOfPatents)
         //{
         //    return
@@ -91,17 +92,8 @@ namespace PatentDataAnalyzer
         //            {
 
         //            }
-
-        //        );
-
-
-
+        //       
         //}
-
-
-
-
-
 
     }
 }
