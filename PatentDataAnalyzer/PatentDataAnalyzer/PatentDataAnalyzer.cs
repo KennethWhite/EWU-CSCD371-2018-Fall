@@ -65,7 +65,9 @@ namespace PatentDataAnalyzer
             {
                 fibs[index] = fibs[index - 1] + fibs[index - 2];
             }
-            return fibs;
+
+            return fibs; //every element
+            //return fibs.Where(x => x % n == 0); //every nth element
         }
 
         
