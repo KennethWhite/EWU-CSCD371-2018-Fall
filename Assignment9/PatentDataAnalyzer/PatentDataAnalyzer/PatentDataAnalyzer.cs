@@ -29,11 +29,11 @@ namespace PatentDataAnalyzer
         /// <returns>The last name of each inventor</returns>
         public static IEnumerable<string> InventorLastNames()
         {
-             IEnumerable <string> inventorLastNames =
-                       from inventor in PatentData.Inventors
-                       let lastName = inventor.Name.Split(' ').Last()
-                       orderby inventor.Id descending
-                       select lastName;
+            IEnumerable<string> inventorLastNames =
+                      from inventor in PatentData.Inventors
+                      let lastName = inventor.Name.Split(' ').Last()
+                      orderby inventor.Id descending
+                      select lastName;
             return inventorLastNames;
         }
 
@@ -44,32 +44,37 @@ namespace PatentDataAnalyzer
         /// <returns>A comma separated list of all the unique "State-Country" strings for each inventor</returns>
         public static string LocationsWithInventors()
         {
-            return string.Join(", ", 
+            return string.Join(", ",
                 (from inventor in PatentData.Inventors
-                 select $"{inventor.State}-{inventor.Country}").Distinct());   
+                 select $"{inventor.State}-{inventor.Country}").Distinct());
         }
 
         /// <summary>
         /// Write a method that returns a collection of every nth fibonacci number.
+        /// First term is indexed at 1
         /// </summary>
         /// <param name="n">The number to calculate fibonacci to</param>
         /// <returns>A collection of every nth fibonacci number</returns>
-        public static IEnumerable<int> NthFibbonacciNumbers(int n)
+        public static IEnumerable<int> NthFibonacciNumbers(int n)
         {
-            //unsure if I should return the number occuring at every
-            //k*nth index, or all of the first n fibonacci numbers
+            int termPrev = 1;
+            int termTwoPrev = 1;
 
-            //Try using iterator and return the item at k*nth index using yield
-            int[] fibs = new int[n];
-            fibs[0] = 1;
-            fibs[1] = 1;
-            for (int index = 2; index < n; index++)
+            //this is using 1 as the first term of the sequence, as opposed to 0
+            if (1 % n == 0) yield return termPrev;
+            if (2 % n == 0) yield return termTwoPrev;
+            int termNumber = 3;
+            while (true)
             {
-                fibs[index] = fibs[index - 1] + fibs[index - 2];
+                int currentTerm = termPrev + termTwoPrev;
+                if (termNumber % n == 0)
+                {
+                    yield return currentTerm;
+                }
+                termTwoPrev = termPrev;
+                termPrev = currentTerm;
+                termNumber++;
             }
-
-            return fibs; //every element
-            //return fibs.Where(x => x % n == 0); //every nth element
         }
 
 
@@ -84,30 +89,19 @@ namespace PatentDataAnalyzer
 
         public static List<Inventor> GetInventorsWithMultiplePatents(int numberOfPatents)
         {
-            //return
-            //    from patent in PatentData.Patents
-            //    group patent by patent.InventorIds
-            //    into groups
-            //    select groups.Join(
-            //        PatentData.Inventors,
-            //        patent => patent.InventorIds,
-            //        inventor => inventor.Id,
-            //        (patent, inventors) =>
-            //        {
 
-            //        }
-
-            //try dictionary approach, add inventor Ids to Dict
-            //iterate through keyset
-
+            //A s an alternative try dictionary approach 
+            // Key : Inventor Ids
+            // Value: Number of times found in Patent.Ids
+            //Then iterate through keyset
             var inventors = PatentData.Inventors.ToList();
             var patents = PatentData.Patents.ToList();
 
-            inventors.Where(inventor =>
-           {
-               int count = patents.Count(patent => patent.InventorIds.Contains(inventor.Id));
-               return count >= numberOfPatents;
-           });
+            return inventors.Where(inventor =>
+            {
+                int count = patents.Count(patent => patent.InventorIds.Contains(inventor.Id));
+                return count == numberOfPatents;
+            }).ToList();
 
         }
 
