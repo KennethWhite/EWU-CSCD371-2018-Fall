@@ -40,10 +40,6 @@
 
                 <HierarchicalDataTemplate DataType="{x:Type io:DirectoryInfo}"
                                           ItemsSource="{Binding Converter={StaticResource ChildrenConverter}}">
-                    <StackPanel Orientation="Horizontal">
-                       
-                    </StackPanel>
-                    
                     <TextBlock Text="{Binding Name}" Foreground="Turquoise" />
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
@@ -53,6 +49,6 @@
 
         <Button Content="Load" Command="{Binding LoadCommand}" 
                 CommandParameter="{Binding RootDirectory}"
-                Grid.Column="1" Grid.Row="1"/>
+                Grid.Column="1" Grid.Row="1" Height="100"/>
     </Grid>
 </Window>
