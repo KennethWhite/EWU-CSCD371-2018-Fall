@@ -11,6 +11,4 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
-  inputs:
-    #command: 'build' 
-    #projects: 'EWU-CSCD371-2018-Fall/tree/master/Assignment6/Assignment6.sln'
+  inputs: #command: 'build' #projects: 'EWU-CSCD371-2018-Fall/tree/master/Assignment6/Assignment6.sln'
