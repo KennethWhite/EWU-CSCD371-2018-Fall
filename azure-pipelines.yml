@@ -10,5 +10,5 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build EWU-CSCD371-2018-Fall/Assignment6 --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
