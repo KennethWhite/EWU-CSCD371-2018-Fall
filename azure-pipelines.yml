@@ -9,11 +9,8 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
+steps:
 - task: DotNetCoreCLI@2
   inputs:
     #command: 'build' 
     #projects: 'EWU-CSCD371-2018-Fall/Assignment6/Assignment6.sln'
-
-steps:
-- script: dotnet build EWU-CSCD371-2018-Fall/Assignment6 --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
